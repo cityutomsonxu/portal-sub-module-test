@@ -1,0 +1,62 @@
+<html>
+    <head>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/handlebars@latest/dist/handlebars.js"></script>
+
+        <script>
+            const loadedModuleJs = [];
+
+            function openModule(moduleCode, moduleTitle, moduleOptions)
+            {
+                if(loadedModuleJs.indexOf(moduleCode)>-1){
+                    console.log("no need to load module js again.")
+                    openModuleInModal(moduleCode, moduleTitle, moduleOptions);
+                } else {
+                    console.log("load module js file for the first time.")
+                    $.getScript("js/mod-" + moduleCode + ".js", function() {
+                        loadedModuleJs.push(moduleCode);
+                        openModuleInModal(moduleCode, moduleTitle, moduleOptions);
+                    });
+                }
+            }
+
+            function openModuleInModal(moduleCode, moduleTitle, moduleOptions)
+            {
+                $("#moduleHeader").text(moduleTitle);
+                $("#moduleBody").text("Loading ...");
+                window["_mod_" + moduleCode + "_init"](moduleCode, moduleOptions);                    
+                $("#myModal").modal({backdrop: "static"});
+            }
+        </script>
+    </head>
+    <body>
+        <h1>Demo: Open module in Modal. it shows multi view, each view use ajax to load temlate and data</h1>
+
+        <a href="#" onclick='openModule("ip", "Check IP Country", "custom options");return false'>IP Module</a>
+        <br>
+        <a href="#" onclick='openModule("comdir", "Communication Directory", "custom options");return false'>Communication Directory Module</a>
+
+        <!-- The Modal -->
+        <div class="modal" id="myModal">
+            <div class="modal-dialog modal-xl">
+            <div class="modal-content">
+            
+                <!-- Modal Header -->
+                <div class="modal-header">
+                <h4 class="modal-title" id="moduleHeader"></h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                
+                <!-- Modal body -->
+                <div class="modal-body" id="moduleBody">
+                Loading ...
+                </div>
+                        
+            </div>
+            </div>
+        </div>
+
+    </body>
+</html>

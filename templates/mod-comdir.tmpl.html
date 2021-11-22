@@ -1,0 +1,45 @@
+<script id="mod-comdir-search-form-view" type="text/x-handlebars-template">
+    EID: <input type="text" name="eid" id="txtEid" value="">
+    <br><br>
+    Department: 
+    <select name="dept" id="ddlDept">
+        {{#each this}}
+            <option value="{{this}}">{{this}}</option>
+        {{/each}}
+    </select>
+    <br><br>
+    <button onclick="_mod_comdir_search()">Search</button>
+</script>
+
+<script id="mod-comdir-search-result-view" type="text/x-handlebars-template">
+    <table border="1">
+        <tr>
+            <th>Preferred Name</th>
+            <th>Dept</th>
+            <th>Email</th>
+            <th></th>
+        </tr>
+        {{#each this}}
+            <tr>
+                <td>{{preferName}}</td>
+                <td>{{dept}}</td>
+                <td>{{email}}</td>
+                <td><button onclick="_mod_comdir_getUserDetail('{{eid}}')">More...</button></td>
+            </tr>
+        {{/each}}
+    </table>
+    <br><br>
+    <button onclick="_mod_comdir_newSearchForm()">New Search</button>
+</script>
+
+<script id="mod-comdir-user-detail-view" type="text/x-handlebars-template">
+    <button onclick="_mod_comdir_newSearchForm()">New Search</button>
+    <br><br>
+    <div>Preferred Name: {{preferName}}</div>
+    <div>Post Title: {{postTitle}}</div>
+    <div>Dept: {{dept}}</div>
+    <div>EID: {{eid}}</div>
+    <div>Email: {{email}}</div>
+    <br><br>
+    <button onclick="_mod_comdir_backToSearchResultView()">Back</button>
+</script>

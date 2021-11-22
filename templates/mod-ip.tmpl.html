@@ -1,0 +1,13 @@
+<script id="mod-ip-search-form-view" type="text/x-handlebars-template">
+    <input type="text" id="txtIp" value="144.23.1.1">
+    <br><br>
+    <button onclick="_mod_ip_checkIpCountry()">Check IP Country</button>
+</script>
+
+<script id="mod-ip-search-result-view" type="text/x-handlebars-template">
+    <div style="color:blue">{{country}}</div>
+    <div style="color:green">{{name}}</div>
+    <div style="color:red">{{ip}}</div>
+    <br><br>
+    <button onclick="_mod_ip_newCheck()">Check Another IP</button>
+</script>
